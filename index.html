@@ -1,280 +1,968 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sahulkumar</title>
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-  --env1:#eceff4;--env2:#e8eef9;--env3:#f6e9e2;--env4:#dfe9f3;
-  --b1:#cfe0ff;--b2:#ffe1d6;--b3:#e4dcff;
-  --glass:rgba(255,255,255,.5);--glass2:rgba(255,255,255,.72);--glass-b:rgba(255,255,255,.75);--hi:rgba(255,255,255,.7);
-  --text:#1d1d1f;--muted:#6e6e73;--accent:#0071e3;--on-accent:#ffffff;
-  --shadow:0 20px 50px rgba(60,80,120,.16);--cl1:92%;--cl2:80%;--chip-bg:rgba(255,255,255,.65);--chip-fg:#1d1d1f;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --env1:#0f1218;--env2:#16203a;--env3:#2a1c2c;--env4:#14243a;
-    --b1:#2a4a8a;--b2:#5a3350;--b3:#3a3472;
-    --glass:rgba(255,255,255,.1);--glass2:rgba(40,46,60,.62);--glass-b:rgba(255,255,255,.2);--hi:rgba(255,255,255,.22);
-    --text:#f5f5f7;--muted:#a1a1a6;--accent:#64b5ff;--on-accent:#04152b;
-    --shadow:0 20px 50px rgba(0,0,0,.45);--cl1:40%;--cl2:24%;--chip-bg:rgba(255,255,255,.18);--chip-fg:#f5f5f7;
-  }
-}
-:root[data-theme="dark"]{
-  --env1:#0f1218;--env2:#16203a;--env3:#2a1c2c;--env4:#14243a;
-  --b1:#2a4a8a;--b2:#5a3350;--b3:#3a3472;
-  --glass:rgba(255,255,255,.1);--glass2:rgba(40,46,60,.62);--glass-b:rgba(255,255,255,.2);--hi:rgba(255,255,255,.22);
-  --text:#f5f5f7;--muted:#a1a1a6;--accent:#64b5ff;--on-accent:#04152b;
-  --shadow:0 20px 50px rgba(0,0,0,.45);--cl1:40%;--cl2:24%;--chip-bg:rgba(255,255,255,.18);--chip-fg:#f5f5f7;
-}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;overflow-x:hidden;color:var(--text);line-height:1.6;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter",system-ui,"Segoe UI",sans-serif;
-  background:radial-gradient(60% 50% at 15% 10%,var(--env2) 0,transparent 70%),radial-gradient(50% 45% at 90% 20%,var(--env3) 0,transparent 70%),
-    radial-gradient(60% 50% at 70% 95%,var(--env4) 0,transparent 70%),var(--env1);background-attachment:fixed}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:.65;pointer-events:none;z-index:0;will-change:transform}
-.b1{width:420px;height:420px;background:var(--b1);top:-100px;left:8%}
-.b2{width:380px;height:380px;background:var(--b2);top:40%;right:-100px}
-.b3{width:360px;height:360px;background:var(--b3);bottom:-120px;left:30%}
-.glass{background:radial-gradient(260px circle at var(--px,50%) var(--py,-30%),var(--hi),transparent 65%),var(--glass);
-  border:1px solid var(--glass-b);box-shadow:var(--shadow),inset 0 1px 1px rgba(255,255,255,.7);
-  -webkit-backdrop-filter:blur(40px) saturate(180%);backdrop-filter:blur(40px) saturate(180%)}
-.bar{position:fixed;left:0;top:0;height:3px;width:100%;z-index:60;background:var(--accent);transform-origin:left;transform:scaleX(0)}
-a.logo{position:fixed;z-index:40;left:20px;top:calc(env(safe-area-inset-top,0px) + 16px);padding:8px 18px;border-radius:999px;text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:-.01em}
-.tabs{position:fixed;z-index:40;left:20px;top:50%;transform:translateY(-50%);width:68px;padding:10px;border-radius:36px;display:flex;flex-direction:column;gap:6px;
-  overflow:hidden;transition:width .4s cubic-bezier(.2,.8,.2,1)}
-.tabs:hover,.tabs:focus-within{width:200px}
-.tabs a{display:flex;align-items:center;gap:14px;height:48px;padding:0 12px;border-radius:26px;text-decoration:none;color:var(--text);white-space:nowrap;font-size:.92rem;font-weight:600;transition:background .25s,color .25s}
-.tabs a:hover{background:var(--hi)}
-.tabs a.on{background:var(--hi);color:var(--accent)}
-.tabs svg{flex:none;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.tabs span{opacity:0;transition:opacity .3s}
-.tabs:hover span,.tabs:focus-within span{opacity:1}
-main{position:relative;z-index:1}
-.page{animation:enter .6s cubic-bezier(.2,.8,.2,1)}
-@keyframes enter{from{opacity:0;transform:translateY(24px)}}
-.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
-@media (min-width:860px) and (max-width:1300px){.wrap{padding-left:116px}}
-.hero{padding:110px 0 10px;text-align:center}
-.hw{border-radius:48px;padding:clamp(34px,7vw,84px) clamp(22px,5vw,64px);text-align:center;will-change:transform,opacity}
-h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;font-weight:700;letter-spacing:-.035em;margin:0 0 16px}
-.hero h1{max-width:20ch;margin-inline:auto}
-h1 .w{display:inline-block;opacity:0;transform:translateY(22px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 70ms + 100ms)}
-@keyframes rise{to{opacity:1;transform:none}}
-.lede{color:var(--muted);font-size:1.12rem;max-width:52ch;margin:0 auto;opacity:0;animation:rise .8s ease .55s forwards}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
-.btn{font:inherit;font-size:.95rem;font-weight:600;border:0;border-radius:999px;padding:13px 28px;cursor:pointer;background:var(--accent);color:var(--on-accent);text-decoration:none;display:inline-block;transition:transform .25s,box-shadow .25s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,113,227,.3)}
-.btn.g{background:var(--glass2);color:var(--text);border:1px solid var(--glass-b)}
-.sec{padding:60px 0 10px}
-.sec>h2{font-size:clamp(1.5rem,3.4vw,2.1rem);margin:0 0 24px;font-weight:700;letter-spacing:-.025em}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;align-items:stretch;grid-auto-rows:1fr}
-.card{display:flex;flex-direction:column;border-radius:34px;padding:12px 12px 24px;text-decoration:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
-a.card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(60,80,120,.22),inset 0 1px 1px rgba(255,255,255,.7)}
-.card .tx{padding:16px 12px 0;flex:1}
-.card small{color:var(--muted);font-size:.8rem;font-weight:500}
-.card h3{margin:4px 0 6px;font-size:1.15rem;line-height:1.3;font-weight:600;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
-.card p{margin:0;color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:4.8em}
-.cv{position:relative;overflow:hidden;isolation:isolate;border-radius:24px;height:var(--ch,150px);
-  background:radial-gradient(120% 120% at 20% 10%,hsl(var(--h) 75% var(--cl1)) 0,hsl(calc(var(--h) + 25) 65% var(--cl2)) 100%)}
-.cv i{position:absolute;display:block;border-radius:50%;background:rgba(255,255,255,.32);border:1px solid rgba(255,255,255,.7);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 16px 36px rgba(60,80,120,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.cv i:nth-child(1){width:58%;aspect-ratio:1;right:-10%;bottom:-38%}
-.cv i:nth-child(2){width:20%;aspect-ratio:1;left:46%;top:16%}
-.cv b{position:absolute;left:16px;top:14px;z-index:2;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;background:var(--chip-bg);color:var(--chip-fg);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.tools{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:28px}
-.tools input{flex:1 1 220px;font:inherit;padding:13px 22px;border-radius:999px;border:1px solid var(--glass-b);background:var(--glass2);color:var(--text)}
-.tools input::placeholder{color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{font:inherit;font-size:.84rem;font-weight:600;padding:9px 18px;border-radius:999px;border:1px solid var(--glass-b);background:var(--glass2);color:var(--text);cursor:pointer;transition:background .25s,color .25s}
-.chip.on{background:var(--accent);color:var(--on-accent);border-color:transparent}
-.empty{text-align:center;color:var(--muted)}
-.read{max-width:720px;margin:28px auto 0;border-radius:44px;padding:clamp(26px,5vw,60px);font-size:1.12rem;line-height:1.8;background:var(--glass2)}
-.read p{margin:0 0 1.25em}
-.read h2{font-size:1.4rem;margin:1.8em 0 .5em;letter-spacing:-.02em;font-weight:700;scroll-margin-top:90px}
-.read blockquote{margin:1.6em 0;padding:24px 28px;border-radius:30px;font-size:1.4rem;line-height:1.45;font-weight:600;letter-spacing:-.015em;
-  background:var(--glass);border:1px solid var(--glass-b);box-shadow:inset 0 1px 1px rgba(255,255,255,.7)}
-.author{max-width:720px;margin:22px auto 0;border-radius:34px;padding:22px 26px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.av{flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:1.25rem;color:#fff;
-  background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.85),var(--accent) 75%)}
-.author div{flex:1 1 220px}.author b{display:block}.author span{color:var(--muted);font-size:.9rem}
-.author .btn{padding:10px 22px}
-.follow{border-radius:44px;padding:clamp(30px,6vw,64px);text-align:center}
-.follow h2{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.025em}.follow p{margin:0;color:var(--muted)}
-.toc{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:20;width:210px;border-radius:28px;padding:16px 12px;display:none}
-@media (min-width:1300px){.toc.on{display:block}}
-.toc b{display:block;font-size:.72rem;color:var(--muted);padding:0 10px 8px;font-weight:600}
-.toc button{display:block;width:100%;text-align:left;font:inherit;font-size:.84rem;font-weight:500;color:var(--text);background:none;border:0;border-radius:16px;padding:9px 12px;cursor:pointer;transition:background .25s,color .25s}
-.toc button.on{background:var(--hi);color:var(--accent);font-weight:600}.toc button:hover{background:var(--hi)}
-.orn{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);z-index:35;display:flex;gap:4px;padding:6px;border-radius:999px;
-  transform:translate(-50%,40px);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s,visibility .4s}
-.orn.show{transform:translate(-50%,0);opacity:1;visibility:visible}
-.orn button{font:inherit;font-size:.84rem;font-weight:600;color:var(--text);background:none;border:0;border-radius:999px;padding:10px 20px;cursor:pointer;transition:background .25s}
-.orn button:hover{background:var(--hi)}
-.rv{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0) * 110ms)}
-.rv.in{opacity:1;transform:none}
-footer{text-align:center;color:var(--muted);font-size:.85rem;padding:60px 20px 110px}
-footer a{font-weight:600}
-@media (max-width:859px){
-  .tabs{left:50%;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);transform:translateX(-50%);width:auto;flex-direction:row;padding:8px;border-radius:999px}
-  .tabs:hover,.tabs:focus-within{width:auto}
-  .tabs a{padding:0 14px}.tabs span{display:none}
-  .orn{bottom:calc(env(safe-area-inset-bottom,0px) + 92px)}
-  a.logo{left:16px}
-}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .page,h1 .w,.lede{animation:none;opacity:1;transform:none}
-  .rv{opacity:1;transform:none;transition:none}
-}
-</style>
-</head>
-<body>
-<div class="blob b1" data-s=".25"></div><div class="blob b2" data-s="-.15"></div><div class="blob b3" data-s="-.3"></div>
-<div class="bar" id="bar"></div>
-<a class="logo glass" href="#home">Marginalia</a>
-<nav class="tabs glass" id="tabs" aria-label="Main"></nav>
-<aside class="toc glass" id="toc" aria-label="On this page"></aside>
-<div class="orn glass" id="orn"><button id="copy" type="button">Copy link</button><button id="top" type="button">Back to top</button></div>
-<main id="app"></main>
-<footer>Marginalia · Made by <a href="https://github.com/k2kumarit-boop">k2kumarit-boop</a></footer>
 
-<script>
-(function(){
-var P=[
-{id:'home',n:'Home',s:'Start here',h:'Notes on reading, writing, and thinking.',l:'Marginalia is a small collection of short essays for curious people. Take your time.',b:[
- {t:'latest',h:'Latest essays',n:6},{t:'follow'}]},
-{id:'essays',n:'Essays',s:'All posts',h:'Every essay, in one place.',l:'Search by keyword or choose a topic.',b:[{t:'index'}]},
-{id:'read-slowly',par:'essays',d:'Nov 2, 2026',q:'Slowing down feels like losing time, but it is often the only way to gain anything from a page.',cat:'Reading',m:'4 min',n:'Why we should read slowly',sum:'Speed is not the same as understanding. A case for reading with a pencil in hand.',s:'Reading',h:'Why we should read slowly.',l:'Reading · 4 min read',b:[
- {t:'article',p:['Reading faster has become a quiet ambition. We skim headlines, scroll past paragraphs, and finish books with a sense that we’ve been somewhere without remembering the trip. Slowing down feels like losing time, but it is often the only way to gain anything from a page.','## Slow reading is active reading','Keep a pencil nearby. Underline a sentence that surprises you, write a question in the margin, or note where you disagree. The marks are a conversation, and they make the text easier to remember.','## Reread the parts that matter','You don’t need to reread an entire book. Go back to the chapter that changed your mind and read it again a week later. Familiar ideas often reveal new details the second time.','## Make a small ritual','Choose a regular time, silence your phone, and read for twenty minutes. A short, protected session beats a long, distracted one.']},
- {t:'more',h:'Keep reading'}]},
-{id:'keep-a-journal',par:'essays',d:'Oct 26, 2026',q:'A journal is the lowest-stakes form of writing there is.',cat:'Writing',m:'3 min',n:'A beginner’s guide to keeping a journal',sum:'No rules, no audience. Just a few gentle prompts to begin.',s:'Writing',h:'A beginner’s guide to keeping a journal.',l:'Writing · 3 min read',b:[
- {t:'article',p:['A journal is the lowest-stakes form of writing there is. No one will grade it, and no one has to read it. That makes it a good place to think.','## Start with five minutes','Set a timer and write until it rings. If you don’t know what to say, write “I don’t know what to say” and see what comes next.','## Use simple prompts','What happened today? What surprised me? What am I worried about? What am I looking forward to? Short questions are easier to answer than big ones.','## Don’t edit yourself','Spelling, grammar, and neat handwriting don’t matter here. The point is to get thoughts out of your head and onto the page.','## Look back sometimes','Once a month, reread a few entries. You may spot patterns in your moods, worries, and wins that are hard to notice day by day.']},
- {t:'more',h:'Keep reading'}]},
-{id:'design-is-editing',par:'essays',d:'Oct 19, 2026',q:'When everything is emphasized, nothing is.',cat:'Design',m:'3 min',n:'Design is mostly editing',sum:'The best pages are the ones where someone had the courage to remove things.',s:'Design',h:'Design is mostly editing.',l:'Design · 3 min read',b:[
- {t:'article',p:['When people imagine design, they picture adding: color, shapes, features. In practice a large part of the work is taking things away.','## Ask what each element is for','Look at any page and ask what job each piece does. If you can’t name it, it may not belong.','## Make one thing the star','When everything is emphasized, nothing is. Choose one main idea per screen or page and let the rest support it.','## Use space as a tool','White space is not wasted space. It gives the eye a place to rest and shows which things belong together.','## Edit again tomorrow','Return with fresh eyes. You will almost always find one more thing to cut.']},
- {t:'more',h:'Keep reading'}]},
-{id:'useful-feedback',par:'essays',d:'Oct 12, 2026',q:'Feedback is a gift only when the receiver can do something with it.',cat:'Work',m:'4 min',n:'How to give feedback people can use',sum:'Be specific, be kind, and point toward a next step.',s:'Work',h:'How to give feedback people can use.',l:'Work · 4 min read',b:[
- {t:'article',p:['Feedback is a gift only when the receiver can do something with it. “This is confusing” helps less than it seems, and “great job” helps even less.','## Describe what you saw','Start with a specific observation: “The second paragraph introduces three ideas at once.” It focuses on the work, not the person.','## Explain the effect','Say how it landed for you: “I lost track of the main point.” This helps the other person see the gap between intent and result.','## Suggest a next step','Offer one idea to try: “Maybe split it into two paragraphs.” Keep it as an offer, not an order.','## Balance the good','Mention what works so it doesn’t get edited away. Specific praise teaches as much as criticism.']},
- {t:'more',h:'Keep reading'}]},
-{id:'what-libraries-teach',par:'essays',d:'Oct 5, 2026',q:'The system moves from broad to specific.',cat:'Ideas',m:'3 min',n:'What a library teaches about organizing information',sum:'A short history of the Dewey Decimal system and what it means for your notes.',s:'Ideas',h:'What a library teaches about organizing information.',l:'Ideas · 3 min read',b:[
- {t:'article',p:['A library is a solution to a problem we all face: too much information and too little time. How it sorts books can help you sort your own notes and files.','## Ten big shelves','In 1876, Melvil Dewey published the system that bears his name, the Dewey Decimal Classification. It divides knowledge into ten main classes and then splits each into smaller topics using decimals.','## Why it works','The system moves from broad to specific. You can find a book by following a short path instead of searching every shelf.','## Try it with your notes','Sort your files into a few broad folders, then add subfolders only when a folder grows crowded. Simple structures are easier to keep up than clever ones.']},
- {t:'more',h:'Keep reading'}]},
-{id:'weekly-review',par:'essays',d:'Sep 28, 2026',q:'A clean list is easier to trust.',cat:'Work',m:'3 min',n:'The case for a weekly review',sum:'Fifteen quiet minutes on Friday can set up the whole next week.',s:'Work',h:'The case for a weekly review.',l:'Work · 3 min read',b:[
- {t:'article',p:['Daily to-do lists keep you moving, but they rarely let you step back. A weekly review is a short pause to look at the bigger picture.','## Look back','Read through your calendar and notes. What went well? What took longer than expected? What did you avoid?','## Clear the clutter','Close open tabs, file loose notes, and delete tasks that no longer matter. A clean list is easier to trust.','## Look ahead','Pick the two or three things that matter most next week and put them in your calendar before anything else fills the space.']},
- {t:'more',h:'Keep reading'}]},
-{id:'about',n:'About',s:'The blog',h:'Notes in the margin.',l:'Marginalia is a small blog of essays on reading, writing, design, and thinking. Each piece is short enough to finish and thoughtful enough to remember.',b:[
- {t:'cols',h:'What we value',i:[['Short essays','Ideas you can finish in a few minutes.'],['Plain language','No jargon unless it is explained first.'],['Room to think','Every piece ends with something to try.']]}]},
-{id:'contact',n:'Contact',s:'Say hello',h:'Say hello.',l:'Want to suggest a topic or send a note? Reach out on GitHub.',b:[{t:'link',i:['Open GitHub profile','https://github.com/k2kumarit-boop']}]}];
-var HUE={Reading:215,Writing:260,Design:20,Work:200,Ideas:240};
-var ICON={
- home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
- essays:'<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',
- about:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
- contact:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/>'};
-var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var app=document.getElementById('app'),bar=document.getElementById('bar'),toc=document.getElementById('toc'),orn=document.getElementById('orn'),copyB=document.getElementById('copy');
-var curP=null,io=null,docH=1,par=[],heads=[],tbs=[],cur=0,target=0,hero=null;
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-function posts(){return P.filter(function(p){return p.cat})}
-function cats(){var c=['All'];posts().forEach(function(p){if(c.indexOf(p.cat)<0)c.push(p.cat)});return c}
-function cover(q,big){var d=function(s){return big?' data-s="'+s+'"':''};
-  return '<div class="cv'+(big?' rv':'')+'" style="--h:'+HUE[q.cat]+(big?';--ch:clamp(200px,34vw,320px)':'')+'"><i'+d('-.05')+'></i><i'+d('-.1')+'></i><b>'+q.cat+'</b></div>'}
-function card(q,j){return '<a class="card glass rv" style="--i:'+(j%3)+'" href="#'+q.id+'" data-c="'+q.cat+'" data-t="'+(q.n+' '+q.sum).toLowerCase()+'">'+cover(q)+
-  '<div class="tx"><small>'+q.cat+' · '+q.m+'</small><h3>'+q.n+'</h3><p>'+q.sum+'</p></div></a>'}
-document.getElementById('tabs').innerHTML=P.filter(function(p){return !p.par}).map(function(p){
-  return '<a href="#'+p.id+'" data-id="'+p.id+'" aria-label="'+p.n+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICON[p.id]+'</svg><span>'+p.n+'</span></a>'}).join('');
-function blk(b){
-  var h=b.h?'<h2 class="rv">'+b.h+'</h2>':'',body='';
-  if(b.t==='latest')body='<div class="grid">'+posts().slice(0,b.n).map(card).join('')+'</div>';
-  if(b.t==='more'){var s=posts().filter(function(q){return q.id!==curP.id});
-    s.sort(function(a,c){return (c.cat===curP.cat)-(a.cat===curP.cat)});body='<div class="grid">'+s.slice(0,2).map(card).join('')+'</div>'}
-  if(b.t==='index')body='<div class="tools rv"><input id="q" type="search" placeholder="Search essays" aria-label="Search essays"><div class="chips" id="chips">'+
-    cats().map(function(c,j){return '<button type="button" class="chip'+(j?'':' on')+'" data-c="'+c+'">'+c+'</button>'}).join('')+'</div></div><div class="grid" id="pgrid">'+posts().map(card).join('')+'</div><p class="empty" id="empty" hidden>No essays match your search.</p>';
-  if(b.t==='cols')body='<div class="grid">'+b.i.map(function(c,j){return '<div class="card glass rv" style="--i:'+j+'"><div class="tx"><h3>'+c[0]+'</h3><p>'+c[1]+'</p></div></div>'}).join('')+'</div>';
-  if(b.t==='article'){var k=0;return '<section class="wrap">'+cover(curP,true)+'<article class="read glass rv">'+b.p.map(function(s,n){
-    var o=s.indexOf('## ')===0?'<h2 id="h'+(k++)+'">'+esc(s.slice(3))+'</h2>':'<p>'+esc(s)+'</p>';
-    return o+(n===2&&curP.q?'<blockquote>'+esc(curP.q)+'</blockquote>':'')}).join('')+'</article>'+
-    '<div class="author glass rv"><span class="av">K</span><div><b>k2kumarit-boop</b><span>Writes short essays on reading, writing, design, and thinking.</span></div><a class="btn" href="https://github.com/k2kumarit-boop">Follow on GitHub</a></div></section>'}
-  if(b.t==='follow')return '<section class="wrap sec"><div class="follow glass rv"><h2>Follow along</h2><p>New essays are announced on GitHub.</p><div class="btns"><a class="btn" href="https://github.com/k2kumarit-boop">Follow on GitHub</a></div></div></section>';
-  if(b.t==='link')body='<div class="btns"><a class="btn rv" href="'+b.i[1]+'">'+b.i[0]+'</a></div>';
-  return '<section class="wrap sec">'+h+body+'</section>';
-}
-function bindFilter(){
-  var q=document.getElementById('q');if(!q)return;var cat='All';
-  function run(){var t=q.value.trim().toLowerCase(),n=0;
-    document.querySelectorAll('#pgrid .card').forEach(function(c){var ok=(cat==='All'||c.dataset.c===cat)&&(!t||c.dataset.t.indexOf(t)>-1);c.style.display=ok?'':'none';if(ok)n++});
-    document.getElementById('empty').hidden=n>0}
-  q.addEventListener('input',run);
-  document.getElementById('chips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;
-    document.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===b)});run()});
-}
-function render(){
-  var id=location.hash.slice(1),i=P.findIndex(function(p){return p.id===id});
-  if(i<0)i=0;var p=P[i];curP=p;
-  document.title=p.n+' · Marginalia';
-  var words=p.h.split(' ').map(function(w,j){return '<span class="w" style="--i:'+j+'">'+w+'</span>'}).join(' ');
-  var meta=p.cat?p.cat+' · '+p.m+' read · '+p.d+' · By k2kumarit-boop':p.l;
-  var h=i===0?'<section class="wrap hero"><div class="hw glass" id="heroIn"><h1>'+words+'</h1><p class="lede">'+p.l+'</p><div class="btns"><a class="btn" href="#essays">Read the essays</a><a class="btn g" href="#about">About the blog</a></div></div></section>'
-    :'<section class="wrap hero"><h1>'+words+'</h1><p class="lede">'+meta+'</p></section>';
-  app.innerHTML='<div class="page">'+h+p.b.map(blk).join('')+'</div>';
-  window.scrollTo({top:0,behavior:'auto'});
-  hero=document.getElementById('heroIn');
-  heads=[].slice.call(document.querySelectorAll('.read h2'));
-  toc.innerHTML=heads.length?'<b>On this page</b>'+heads.map(function(x,j){return '<button type="button" data-j="'+j+'">'+x.textContent+'</button>'}).join(''):'';
-  toc.classList.toggle('on',heads.length>0);tbs=[].slice.call(toc.querySelectorAll('button'));
-  orn.dataset.post=p.cat?'1':'';orn.classList.remove('show');
-  par=[].slice.call(document.querySelectorAll('[data-s]')).map(function(e){return [e,+e.dataset.s]});
-  document.querySelectorAll('.tabs a').forEach(function(a){var on=a.dataset.id===(p.par||p.id);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  cur=target=0;docH=document.documentElement.scrollHeight-window.innerHeight||1;observe();bindFilter();
-}
-function observe(){
-  var els=document.querySelectorAll('.rv');if(io)io.disconnect();
-  if('IntersectionObserver' in window){
-    io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-    els.forEach(function(e){io.observe(e)});
-  }else els.forEach(function(e){e.classList.add('in')});
-}
-toc.addEventListener('click',function(e){var b=e.target.closest('button');if(b)heads[+b.dataset.j].scrollIntoView({behavior:calm?'auto':'smooth',block:'start'})});
-document.getElementById('top').addEventListener('click',function(){window.scrollTo({top:0,behavior:calm?'auto':'smooth'})});
-copyB.addEventListener('click',function(){
-  var u=location.href;
-  function ok(){copyB.textContent='Copied';setTimeout(function(){copyB.textContent='Copy link'},1600)}
-  function fb(){var t=document.createElement('textarea');t.value=u;document.body.appendChild(t);t.select();
-    try{document.execCommand('copy');ok()}catch(e){copyB.textContent='Copy failed'}document.body.removeChild(t)}
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,fb)}else fb();
-});
-document.addEventListener('pointermove',function(e){
-  var g=e.target.closest&&e.target.closest('.glass');if(!g)return;
-  var r=g.getBoundingClientRect();g.style.setProperty('--px',(e.clientX-r.left)+'px');g.style.setProperty('--py',(e.clientY-r.top)+'px');
-});
-function frame(){
-  cur+=(target-cur)*(calm?1:.1);if(Math.abs(target-cur)<.05)cur=target;
-  var q=cur/docH;bar.style.transform='scaleX('+(q<0?0:q>1?1:q)+')';
-  for(var i=0;i<par.length;i++)par[i][0].style.transform='translate3d(0,'+(cur*par[i][1])+'px,0)';
-  if(hero){var hp=Math.min(cur/(window.innerHeight*.9),1);hero.style.transform='translate3d(0,'+(-hp*40)+'px,0) scale('+(1-hp*.05)+')';hero.style.opacity=1-hp*.7}
-  if(heads.length){var a=0;heads.forEach(function(x,j){if(x.getBoundingClientRect().top<window.innerHeight*.4)a=j});
-    tbs.forEach(function(b,j){b.classList.toggle('on',j===a)})}
-  requestAnimationFrame(frame);
-}
-function sc(){target=window.scrollY;orn.classList.toggle('show',!!orn.dataset.post&&target>260)}
-window.addEventListener('scroll',sc,{passive:true});
-window.addEventListener('resize',function(){docH=document.documentElement.scrollHeight-window.innerHeight||1});
-window.addEventListener('load',function(){docH=document.documentElement.scrollHeight-window.innerHeight||1});
-window.addEventListener('hashchange',render);
-render();cur=target=window.scrollY;sc();frame();
-})();
-</script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sahulkumar</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --env1: #eceff4;
+      --env2: #e8eef9;
+      --env3: #f6e9e2;
+      --env4: #dfe9f3;
+      --b1: #cfe0ff;
+      --b2: #ffe1d6;
+      --b3: #e4dcff;
+      --glass: rgba(255, 255, 255, .5);
+      --glass2: rgba(255, 255, 255, .72);
+      --glass-b: rgba(255, 255, 255, .75);
+      --hi: rgba(255, 255, 255, .7);
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --accent: #0071e3;
+      --on-accent: #ffffff;
+      --shadow: 0 20px 50px rgba(60, 80, 120, .16);
+      --cl1: 92%;
+      --cl2: 80%;
+      --chip-bg: rgba(255, 255, 255, .65);
+      --chip-fg: #1d1d1f;
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --env1: #0f1218;
+        --env2: #16203a;
+        --env3: #2a1c2c;
+        --env4: #14243a;
+        --b1: #2a4a8a;
+        --b2: #5a3350;
+        --b3: #3a3472;
+        --glass: rgba(255, 255, 255, .1);
+        --glass2: rgba(40, 46, 60, .62);
+        --glass-b: rgba(255, 255, 255, .2);
+        --hi: rgba(255, 255, 255, .22);
+        --text: #f5f5f7;
+        --muted: #a1a1a6;
+        --accent: #64b5ff;
+        --on-accent: #04152b;
+        --shadow: 0 20px 50px rgba(0, 0, 0, .45);
+        --cl1: 40%;
+        --cl2: 24%;
+        --chip-bg: rgba(255, 255, 255, .18);
+        --chip-fg: #f5f5f7;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --env1: #0f1218;
+      --env2: #16203a;
+      --env3: #2a1c2c;
+      --env4: #14243a;
+      --b1: #2a4a8a;
+      --b2: #5a3350;
+      --b3: #3a3472;
+      --glass: rgba(255, 255, 255, .1);
+      --glass2: rgba(40, 46, 60, .62);
+      --glass-b: rgba(255, 255, 255, .2);
+      --hi: rgba(255, 255, 255, .22);
+      --text: #f5f5f7;
+      --muted: #a1a1a6;
+      --accent: #64b5ff;
+      --on-accent: #04152b;
+      --shadow: 0 20px 50px rgba(0, 0, 0, .45);
+      --cl1: 40%;
+      --cl2: 24%;
+      --chip-bg: rgba(255, 255, 255, .18);
+      --chip-fg: #f5f5f7;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, "Segoe UI", sans-serif;
+      background: radial-gradient(60% 50% at 15% 10%, var(--env2) 0, transparent 70%), radial-gradient(50% 45% at 90% 20%, var(--env3) 0, transparent 70%),
+        radial-gradient(60% 50% at 70% 95%, var(--env4) 0, transparent 70%), var(--env1);
+      background-attachment: fixed
+    }
+
+    a {
+      color: inherit
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .65;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform
+    }
+
+    .b1 {
+      width: 420px;
+      height: 420px;
+      background: var(--b1);
+      top: -100px;
+      left: 8%
+    }
+
+    .b2 {
+      width: 380px;
+      height: 380px;
+      background: var(--b2);
+      top: 40%;
+      right: -100px
+    }
+
+    .b3 {
+      width: 360px;
+      height: 360px;
+      background: var(--b3);
+      bottom: -120px;
+      left: 30%
+    }
+
+    .glass {
+      background: radial-gradient(260px circle at var(--px, 50%) var(--py, -30%), var(--hi), transparent 65%), var(--glass);
+      border: 1px solid var(--glass-b);
+      box-shadow: var(--shadow), inset 0 1px 1px rgba(255, 255, 255, .7);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      backdrop-filter: blur(40px) saturate(180%)
+    }
+
+    .bar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      z-index: 60;
+      background: var(--accent);
+      transform-origin: left;
+      transform: scaleX(0)
+    }
+
+    a.logo {
+      position: fixed;
+      z-index: 40;
+      left: 20px;
+      top: calc(env(safe-area-inset-top, 0px) + 16px);
+      padding: 8px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: -.01em
+    }
+
+    .tabs {
+      position: fixed;
+      z-index: 40;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 68px;
+      padding: 10px;
+      border-radius: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+      transition: width .4s cubic-bezier(.2, .8, .2, 1)
+    }
+
+    .tabs:hover,
+    .tabs:focus-within {
+      width: 200px
+    }
+
+    .tabs a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      height: 48px;
+      padding: 0 12px;
+      border-radius: 26px;
+      text-decoration: none;
+      color: var(--text);
+      white-space: nowrap;
+      font-size: .92rem;
+      font-weight: 600;
+      transition: background .25s, color .25s
+    }
+
+    .tabs a:hover {
+      background: var(--hi)
+    }
+
+    .tabs a.on {
+      background: var(--hi);
+      color: var(--accent)
+    }
+
+    .tabs svg {
+      flex: none;
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
+    .tabs span {
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .tabs:hover span,
+    .tabs:focus-within span {
+      opacity: 1
+    }
+
+    main {
+      position: relative;
+      z-index: 1
+    }
+
+    .page {
+      animation: enter .6s cubic-bezier(.2, .8, .2, 1)
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(24px)
+      }
+    }
+
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px
+    }
+
+    @media (min-width:860px) and (max-width:1300px) {
+      .wrap {
+        padding-left: 116px
+      }
+    }
+
+    .hero {
+      padding: 110px 0 10px;
+      text-align: center
+    }
+
+    .hw {
+      border-radius: 48px;
+      padding: clamp(34px, 7vw, 84px) clamp(22px, 5vw, 64px);
+      text-align: center;
+      will-change: transform, opacity
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 6vw, 4.2rem);
+      line-height: 1.06;
+      font-weight: 700;
+      letter-spacing: -.035em;
+      margin: 0 0 16px
+    }
+
+    .hero h1 {
+      max-width: 20ch;
+      margin-inline: auto
+    }
+
+    h1 .w {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(22px);
+      animation: rise .8s cubic-bezier(.2, .8, .2, 1) forwards;
+      animation-delay: calc(var(--i) * 70ms + 100ms)
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .lede {
+      color: var(--muted);
+      font-size: 1.12rem;
+      max-width: 52ch;
+      margin: 0 auto;
+      opacity: 0;
+      animation: rise .8s ease .55s forwards
+    }
+
+    .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px
+    }
+
+    .btn {
+      font: inherit;
+      font-size: .95rem;
+      font-weight: 600;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 28px;
+      cursor: pointer;
+      background: var(--accent);
+      color: var(--on-accent);
+      text-decoration: none;
+      display: inline-block;
+      transition: transform .25s, box-shadow .25s
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 113, 227, .3)
+    }
+
+    .btn.g {
+      background: var(--glass2);
+      color: var(--text);
+      border: 1px solid var(--glass-b)
+    }
+
+    .sec {
+      padding: 60px 0 10px
+    }
+
+    .sec>h2 {
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      margin: 0 0 24px;
+      font-weight: 700;
+      letter-spacing: -.025em
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 22px;
+      align-items: stretch;
+      grid-auto-rows: 1fr
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 34px;
+      padding: 12px 12px 24px;
+      text-decoration: none;
+      transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s
+    }
+
+    a.card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px rgba(60, 80, 120, .22), inset 0 1px 1px rgba(255, 255, 255, .7)
+    }
+
+    .card .tx {
+      padding: 16px 12px 0;
+      flex: 1
+    }
+
+    .card small {
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 500
+    }
+
+    .card h3 {
+      margin: 4px 0 6px;
+      font-size: 1.15rem;
+      line-height: 1.3;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.6em
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 4.8em
+    }
+
+    .cv {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      border-radius: 24px;
+      height: var(--ch, 150px);
+      background: radial-gradient(120% 120% at 20% 10%, hsl(var(--h) 75% var(--cl1)) 0, hsl(calc(var(--h) + 25) 65% var(--cl2)) 100%)
+    }
+
+    .cv i {
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .32);
+      border: 1px solid rgba(255, 255, 255, .7);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, .8), 0 16px 36px rgba(60, 80, 120, .18);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px)
+    }
+
+    .cv i:nth-child(1) {
+      width: 58%;
+      aspect-ratio: 1;
+      right: -10%;
+      bottom: -38%
+    }
+
+    .cv i:nth-child(2) {
+      width: 20%;
+      aspect-ratio: 1;
+      left: 46%;
+      top: 16%
+    }
+
+    .cv b {
+      position: absolute;
+      left: 16px;
+      top: 14px;
+      z-index: 2;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--chip-fg);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px)
+    }
+
+    .tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 28px
+    }
+
+    .tools input {
+      flex: 1 1 220px;
+      font: inherit;
+      padding: 13px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-b);
+      background: var(--glass2);
+      color: var(--text)
+    }
+
+    .tools input::placeholder {
+      color: var(--muted)
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chip {
+      font: inherit;
+      font-size: .84rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-b);
+      background: var(--glass2);
+      color: var(--text);
+      cursor: pointer;
+      transition: background .25s, color .25s
+    }
+
+    .chip.on {
+      background: var(--accent);
+      color: var(--on-accent);
+      border-color: transparent
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted)
+    }
+
+    .read {
+      max-width: 720px;
+      margin: 28px auto 0;
+      border-radius: 44px;
+      padding: clamp(26px, 5vw, 60px);
+      font-size: 1.12rem;
+      line-height: 1.8;
+      background: var(--glass2)
+    }
+
+    .read p {
+      margin: 0 0 1.25em
+    }
+
+    .read h2 {
+      font-size: 1.4rem;
+      margin: 1.8em 0 .5em;
+      letter-spacing: -.02em;
+      font-weight: 700;
+      scroll-margin-top: 90px
+    }
+
+    .read blockquote {
+      margin: 1.6em 0;
+      padding: 24px 28px;
+      border-radius: 30px;
+      font-size: 1.4rem;
+      line-height: 1.45;
+      font-weight: 600;
+      letter-spacing: -.015em;
+      background: var(--glass);
+      border: 1px solid var(--glass-b);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, .7)
+    }
+
+    .author {
+      max-width: 720px;
+      margin: 22px auto 0;
+      border-radius: 34px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .av {
+      flex: none;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+      background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .85), var(--accent) 75%)
+    }
+
+    .author div {
+      flex: 1 1 220px
+    }
+
+    .author b {
+      display: block
+    }
+
+    .author span {
+      color: var(--muted);
+      font-size: .9rem
+    }
+
+    .author .btn {
+      padding: 10px 22px
+    }
+
+    .follow {
+      border-radius: 44px;
+      padding: clamp(30px, 6vw, 64px);
+      text-align: center
+    }
+
+    .follow h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: -.025em
+    }
+
+    .follow p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .toc {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 210px;
+      border-radius: 28px;
+      padding: 16px 12px;
+      display: none
+    }
+
+    @media (min-width:1300px) {
+      .toc.on {
+        display: block
+      }
+    }
+
+    .toc b {
+      display: block;
+      font-size: .72rem;
+      color: var(--muted);
+      padding: 0 10px 8px;
+      font-weight: 600
+    }
+
+    .toc button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-size: .84rem;
+      font-weight: 500;
+      color: var(--text);
+      background: none;
+      border: 0;
+      border-radius: 16px;
+      padding: 9px 12px;
+      cursor: pointer;
+      transition: background .25s, color .25s
+    }
+
+    .toc button.on {
+      background: var(--hi);
+      color: var(--accent);
+      font-weight: 600
+    }
+
+    .toc button:hover {
+      background: var(--hi)
+    }
+
+    .orn {
+      position: fixed;
+      left: 50%;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+      z-index: 35;
+      display: flex;
+      gap: 4px;
+      padding: 6px;
+      border-radius: 999px;
+      transform: translate(-50%, 40px);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .4s, visibility .4s
+    }
+
+    .orn.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+      visibility: visible
+    }
+
+    .orn button {
+      font: inherit;
+      font-size: .84rem;
+      font-weight: 600;
+      color: var(--text);
+      background: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background .25s
+    }
+
+    .orn button:hover {
+      background: var(--hi)
+    }
+
+    .rv {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .8s ease, transform .9s cubic-bezier(.2, .8, .2, 1);
+      transition-delay: calc(var(--i, 0) * 110ms)
+    }
+
+    .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+      padding: 60px 20px 110px
+    }
+
+    footer a {
+      font-weight: 600
+    }
+
+    @media (max-width:859px) {
+      .tabs {
+        left: 50%;
+        top: auto;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+        transform: translateX(-50%);
+        width: auto;
+        flex-direction: row;
+        padding: 8px;
+        border-radius: 999px
+      }
+
+      .tabs:hover,
+      .tabs:focus-within {
+        width: auto
+      }
+
+      .tabs a {
+        padding: 0 14px
+      }
+
+      .tabs span {
+        display: none
+      }
+
+      .orn {
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 92px)
+      }
+
+      a.logo {
+        left: 16px
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+
+      .page,
+      h1 .w,
+      .lede {
+        animation: none;
+        opacity: 1;
+        transform: none
+      }
+
+      .rv {
+        opacity: 1;
+        transform: none;
+        transition: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blob b1" data-s=".25"></div>
+  <div class="blob b2" data-s="-.15"></div>
+  <div class="blob b3" data-s="-.3"></div>
+  <div class="bar" id="bar"></div>
+  <a class="logo glass" href="#home">ordinary.magix</a>
+  <nav class="tabs glass" id="tabs" aria-label="Main"></nav>
+  <aside class="toc glass" id="toc" aria-label="On this page"></aside>
+  <div class="orn glass" id="orn"><button id="copy" type="button">Copy link</button><button id="top" type="button">Back
+      to top</button></div>
+  <main id="app"></main>
+  <footer>ordinary.magix · Made by <a href="https://github.com/k2kumarit-boop">k2kumarit-boop</a></footer>
+
+  <script>
+    (function () {
+      var P = [
+        {
+          id: 'home', n: 'Home', s: 'Start here', h: 'Notes on reading, writing, and thinking.', l: 'ordinary.magix is a small collection of short essays for curious people. Take your time.', b: [
+            { t: 'latest', h: 'Latest essays', n: 6 }, { t: 'follow' }]
+        },
+        { id: 'essays', n: 'Essays', s: 'All posts', h: 'Every essay, in one place.', l: 'Search by keyword or choose a topic.', b: [{ t: 'index' }] },
+        {
+          id: 'read-slowly', par: 'essays', d: 'Nov 2, 2026', q: 'Slowing down feels like losing time, but it is often the only way to gain anything from a page.', cat: 'Reading', m: '4 min', n: 'Why we should read slowly', sum: 'Speed is not the same as understanding. A case for reading with a pencil in hand.', s: 'Reading', h: 'Why we should read slowly.', l: 'Reading · 4 min read', b: [
+            { t: 'article', p: ['Reading faster has become a quiet ambition. We skim headlines, scroll past paragraphs, and finish books with a sense that we’ve been somewhere without remembering the trip. Slowing down feels like losing time, but it is often the only way to gain anything from a page.', '## Slow reading is active reading', 'Keep a pencil nearby. Underline a sentence that surprises you, write a question in the margin, or note where you disagree. The marks are a conversation, and they make the text easier to remember.', '## Reread the parts that matter', 'You don’t need to reread an entire book. Go back to the chapter that changed your mind and read it again a week later. Familiar ideas often reveal new details the second time.', '## Make a small ritual', 'Choose a regular time, silence your phone, and read for twenty minutes. A short, protected session beats a long, distracted one.'] },
+            { t: 'more', h: 'Keep reading' }]
+        },
+        {
+          id: 'keep-a-journal', par: 'essays', d: 'Oct 26, 2026', q: 'A journal is the lowest-stakes form of writing there is.', cat: 'Writing', m: '3 min', n: 'A beginner’s guide to keeping a journal', sum: 'No rules, no audience. Just a few gentle prompts to begin.', s: 'Writing', h: 'A beginner’s guide to keeping a journal.', l: 'Writing · 3 min read', b: [
+            { t: 'article', p: ['A journal is the lowest-stakes form of writing there is. No one will grade it, and no one has to read it. That makes it a good place to think.', '## Start with five minutes', 'Set a timer and write until it rings. If you don’t know what to say, write “I don’t know what to say” and see what comes next.', '## Use simple prompts', 'What happened today? What surprised me? What am I worried about? What am I looking forward to? Short questions are easier to answer than big ones.', '## Don’t edit yourself', 'Spelling, grammar, and neat handwriting don’t matter here. The point is to get thoughts out of your head and onto the page.', '## Look back sometimes', 'Once a month, reread a few entries. You may spot patterns in your moods, worries, and wins that are hard to notice day by day.'] },
+            { t: 'more', h: 'Keep reading' }]
+        },
+        {
+          id: 'design-is-editing', par: 'essays', d: 'Oct 19, 2026', q: 'When everything is emphasized, nothing is.', cat: 'Design', m: '3 min', n: 'Design is mostly editing', sum: 'The best pages are the ones where someone had the courage to remove things.', s: 'Design', h: 'Design is mostly editing.', l: 'Design · 3 min read', b: [
+            { t: 'article', p: ['When people imagine design, they picture adding: color, shapes, features. In practice a large part of the work is taking things away.', '## Ask what each element is for', 'Look at any page and ask what job each piece does. If you can’t name it, it may not belong.', '## Make one thing the star', 'When everything is emphasized, nothing is. Choose one main idea per screen or page and let the rest support it.', '## Use space as a tool', 'White space is not wasted space. It gives the eye a place to rest and shows which things belong together.', '## Edit again tomorrow', 'Return with fresh eyes. You will almost always find one more thing to cut.'] },
+            { t: 'more', h: 'Keep reading' }]
+        },
+        {
+          id: 'useful-feedback', par: 'essays', d: 'Oct 12, 2026', q: 'Feedback is a gift only when the receiver can do something with it.', cat: 'Work', m: '4 min', n: 'How to give feedback people can use', sum: 'Be specific, be kind, and point toward a next step.', s: 'Work', h: 'How to give feedback people can use.', l: 'Work · 4 min read', b: [
+            { t: 'article', p: ['Feedback is a gift only when the receiver can do something with it. “This is confusing” helps less than it seems, and “great job” helps even less.', '## Describe what you saw', 'Start with a specific observation: “The second paragraph introduces three ideas at once.” It focuses on the work, not the person.', '## Explain the effect', 'Say how it landed for you: “I lost track of the main point.” This helps the other person see the gap between intent and result.', '## Suggest a next step', 'Offer one idea to try: “Maybe split it into two paragraphs.” Keep it as an offer, not an order.', '## Balance the good', 'Mention what works so it doesn’t get edited away. Specific praise teaches as much as criticism.'] },
+            { t: 'more', h: 'Keep reading' }]
+        },
+        {
+          id: 'what-libraries-teach', par: 'essays', d: 'Oct 5, 2026', q: 'The system moves from broad to specific.', cat: 'Ideas', m: '3 min', n: 'What a library teaches about organizing information', sum: 'A short history of the Dewey Decimal system and what it means for your notes.', s: 'Ideas', h: 'What a library teaches about organizing information.', l: 'Ideas · 3 min read', b: [
+            { t: 'article', p: ['A library is a solution to a problem we all face: too much information and too little time. How it sorts books can help you sort your own notes and files.', '## Ten big shelves', 'In 1876, Melvil Dewey published the system that bears his name, the Dewey Decimal Classification. It divides knowledge into ten main classes and then splits each into smaller topics using decimals.', '## Why it works', 'The system moves from broad to specific. You can find a book by following a short path instead of searching every shelf.', '## Try it with your notes', 'Sort your files into a few broad folders, then add subfolders only when a folder grows crowded. Simple structures are easier to keep up than clever ones.'] },
+            { t: 'more', h: 'Keep reading' }]
+        },
+        {
+          id: 'weekly-review', par: 'essays', d: 'Sep 28, 2026', q: 'A clean list is easier to trust.', cat: 'Work', m: '3 min', n: 'The case for a weekly review', sum: 'Fifteen quiet minutes on Friday can set up the whole next week.', s: 'Work', h: 'The case for a weekly review.', l: 'Work · 3 min read', b: [
+            { t: 'article', p: ['Daily to-do lists keep you moving, but they rarely let you step back. A weekly review is a short pause to look at the bigger picture.', '## Look back', 'Read through your calendar and notes. What went well? What took longer than expected? What did you avoid?', '## Clear the clutter', 'Close open tabs, file loose notes, and delete tasks that no longer matter. A clean list is easier to trust.', '## Look ahead', 'Pick the two or three things that matter most next week and put them in your calendar before anything else fills the space.'] },
+            { t: 'more', h: 'Keep reading' }]
+        },
+        {
+          id: 'about', n: 'About', s: 'The blog', h: 'Notes in the margin.', l: 'ordinary.magix is a small blog of essays on reading, writing, design, and thinking. Each piece is short enough to finish and thoughtful enough to remember.', b: [
+            { t: 'cols', h: 'What we value', i: [['Short essays', 'Ideas you can finish in a few minutes.'], ['Plain language', 'No jargon unless it is explained first.'], ['Room to think', 'Every piece ends with something to try.']] }]
+        },
+        { id: 'contact', n: 'Contact', s: 'Say hello', h: 'Say hello.', l: 'Want to suggest a topic or send a note? Reach out on GitHub.', b: [{ t: 'link', i: ['Open GitHub profile', 'https://github.com/k2kumarit-boop'] }] }];
+      var HUE = { Reading: 215, Writing: 260, Design: 20, Work: 200, Ideas: 240 };
+      var ICON = {
+        home: '<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+        essays: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',
+        about: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+        contact: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/>'
+      };
+      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var app = document.getElementById('app'), bar = document.getElementById('bar'), toc = document.getElementById('toc'), orn = document.getElementById('orn'), copyB = document.getElementById('copy');
+      var curP = null, io = null, docH = 1, par = [], heads = [], tbs = [], cur = 0, target = 0, hero = null;
+      function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;') }
+      function posts() { return P.filter(function (p) { return p.cat }) }
+      function cats() { var c = ['All']; posts().forEach(function (p) { if (c.indexOf(p.cat) < 0) c.push(p.cat) }); return c }
+      function cover(q, big) {
+        var d = function (s) { return big ? ' data-s="' + s + '"' : '' };
+        return '<div class="cv' + (big ? ' rv' : '') + '" style="--h:' + HUE[q.cat] + (big ? ';--ch:clamp(200px,34vw,320px)' : '') + '"><i' + d('-.05') + '></i><i' + d('-.1') + '></i><b>' + q.cat + '</b></div>'
+      }
+      function card(q, j) {
+        return '<a class="card glass rv" style="--i:' + (j % 3) + '" href="#' + q.id + '" data-c="' + q.cat + '" data-t="' + (q.n + ' ' + q.sum).toLowerCase() + '">' + cover(q) +
+          '<div class="tx"><small>' + q.cat + ' · ' + q.m + '</small><h3>' + q.n + '</h3><p>' + q.sum + '</p></div></a>'
+      }
+      document.getElementById('tabs').innerHTML = P.filter(function (p) { return !p.par }).map(function (p) {
+        return '<a href="#' + p.id + '" data-id="' + p.id + '" aria-label="' + p.n + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICON[p.id] + '</svg><span>' + p.n + '</span></a>'
+      }).join('');
+      function blk(b) {
+        var h = b.h ? '<h2 class="rv">' + b.h + '</h2>' : '', body = '';
+        if (b.t === 'latest') body = '<div class="grid">' + posts().slice(0, b.n).map(card).join('') + '</div>';
+        if (b.t === 'more') {
+          var s = posts().filter(function (q) { return q.id !== curP.id });
+          s.sort(function (a, c) { return (c.cat === curP.cat) - (a.cat === curP.cat) }); body = '<div class="grid">' + s.slice(0, 2).map(card).join('') + '</div>'
+        }
+        if (b.t === 'index') body = '<div class="tools rv"><input id="q" type="search" placeholder="Search essays" aria-label="Search essays"><div class="chips" id="chips">' +
+          cats().map(function (c, j) { return '<button type="button" class="chip' + (j ? '' : ' on') + '" data-c="' + c + '">' + c + '</button>' }).join('') + '</div></div><div class="grid" id="pgrid">' + posts().map(card).join('') + '</div><p class="empty" id="empty" hidden>No essays match your search.</p>';
+        if (b.t === 'cols') body = '<div class="grid">' + b.i.map(function (c, j) { return '<div class="card glass rv" style="--i:' + j + '"><div class="tx"><h3>' + c[0] + '</h3><p>' + c[1] + '</p></div></div>' }).join('') + '</div>';
+        if (b.t === 'article') {
+          var k = 0; return '<section class="wrap">' + cover(curP, true) + '<article class="read glass rv">' + b.p.map(function (s, n) {
+            var o = s.indexOf('## ') === 0 ? '<h2 id="h' + (k++) + '">' + esc(s.slice(3)) + '</h2>' : '<p>' + esc(s) + '</p>';
+            return o + (n === 2 && curP.q ? '<blockquote>' + esc(curP.q) + '</blockquote>' : '')
+          }).join('') + '</article>' +
+            '<div class="author glass rv"><span class="av">K</span><div><b>k2kumarit-boop</b><span>Writes short essays on reading, writing, design, and thinking.</span></div><a class="btn" href="https://github.com/k2kumarit-boop">Follow on GitHub</a></div></section>'
+        }
+        if (b.t === 'follow') return '<section class="wrap sec"><div class="follow glass rv"><h2>Follow along</h2><p>New essays are announced on GitHub.</p><div class="btns"><a class="btn" href="https://github.com/k2kumarit-boop">Follow on GitHub</a></div></div></section>';
+        if (b.t === 'link') body = '<div class="btns"><a class="btn rv" href="' + b.i[1] + '">' + b.i[0] + '</a></div>';
+        return '<section class="wrap sec">' + h + body + '</section>';
+      }
+      function bindFilter() {
+        var q = document.getElementById('q'); if (!q) return; var cat = 'All';
+        function run() {
+          var t = q.value.trim().toLowerCase(), n = 0;
+          document.querySelectorAll('#pgrid .card').forEach(function (c) { var ok = (cat === 'All' || c.dataset.c === cat) && (!t || c.dataset.t.indexOf(t) > -1); c.style.display = ok ? '' : 'none'; if (ok) n++ });
+          document.getElementById('empty').hidden = n > 0
+        }
+        q.addEventListener('input', run);
+        document.getElementById('chips').addEventListener('click', function (e) {
+          var b = e.target.closest('.chip'); if (!b) return; cat = b.dataset.c;
+          document.querySelectorAll('.chip').forEach(function (x) { x.classList.toggle('on', x === b) }); run()
+        });
+      }
+      function render() {
+        var id = location.hash.slice(1), i = P.findIndex(function (p) { return p.id === id });
+        if (i < 0) i = 0; var p = P[i]; curP = p;
+        document.title = p.n + ' · ordinary.magix';
+        var words = p.h.split(' ').map(function (w, j) { return '<span class="w" style="--i:' + j + '">' + w + '</span>' }).join(' ');
+        var meta = p.cat ? p.cat + ' · ' + p.m + ' read · ' + p.d + ' · By k2kumarit-boop' : p.l;
+        var h = i === 0 ? '<section class="wrap hero"><div class="hw glass" id="heroIn"><h1>' + words + '</h1><p class="lede">' + p.l + '</p><div class="btns"><a class="btn" href="#essays">Read the essays</a><a class="btn g" href="#about">About the blog</a></div></div></section>'
+          : '<section class="wrap hero"><h1>' + words + '</h1><p class="lede">' + meta + '</p></section>';
+        app.innerHTML = '<div class="page">' + h + p.b.map(blk).join('') + '</div>';
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        hero = document.getElementById('heroIn');
+        heads = [].slice.call(document.querySelectorAll('.read h2'));
+        toc.innerHTML = heads.length ? '<b>On this page</b>' + heads.map(function (x, j) { return '<button type="button" data-j="' + j + '">' + x.textContent + '</button>' }).join('') : '';
+        toc.classList.toggle('on', heads.length > 0); tbs = [].slice.call(toc.querySelectorAll('button'));
+        orn.dataset.post = p.cat ? '1' : ''; orn.classList.remove('show');
+        par = [].slice.call(document.querySelectorAll('[data-s]')).map(function (e) { return [e, +e.dataset.s] });
+        document.querySelectorAll('.tabs a').forEach(function (a) { var on = a.dataset.id === (p.par || p.id); a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current') });
+        cur = target = 0; docH = document.documentElement.scrollHeight - window.innerHeight || 1; observe(); bindFilter();
+      }
+      function observe() {
+        var els = document.querySelectorAll('.rv'); if (io) io.disconnect();
+        if ('IntersectionObserver' in window) {
+          io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) } }) }, { threshold: .12 });
+          els.forEach(function (e) { io.observe(e) });
+        } else els.forEach(function (e) { e.classList.add('in') });
+      }
+      toc.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) heads[+b.dataset.j].scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' }) });
+      document.getElementById('top').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' }) });
+      copyB.addEventListener('click', function () {
+        var u = location.href;
+        function ok() { copyB.textContent = 'Copied'; setTimeout(function () { copyB.textContent = 'Copy link' }, 1600) }
+        function fb() {
+          var t = document.createElement('textarea'); t.value = u; document.body.appendChild(t); t.select();
+          try { document.execCommand('copy'); ok() } catch (e) { copyB.textContent = 'Copy failed' } document.body.removeChild(t)
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(u).then(ok, fb) } else fb();
+      });
+      document.addEventListener('pointermove', function (e) {
+        var g = e.target.closest && e.target.closest('.glass'); if (!g) return;
+        var r = g.getBoundingClientRect(); g.style.setProperty('--px', (e.clientX - r.left) + 'px'); g.style.setProperty('--py', (e.clientY - r.top) + 'px');
+      });
+      function frame() {
+        cur += (target - cur) * (calm ? 1 : .1); if (Math.abs(target - cur) < .05) cur = target;
+        var q = cur / docH; bar.style.transform = 'scaleX(' + (q < 0 ? 0 : q > 1 ? 1 : q) + ')';
+        for (var i = 0; i < par.length; i++)par[i][0].style.transform = 'translate3d(0,' + (cur * par[i][1]) + 'px,0)';
+        if (hero) { var hp = Math.min(cur / (window.innerHeight * .9), 1); hero.style.transform = 'translate3d(0,' + (-hp * 40) + 'px,0) scale(' + (1 - hp * .05) + ')'; hero.style.opacity = 1 - hp * .7 }
+        if (heads.length) {
+          var a = 0; heads.forEach(function (x, j) { if (x.getBoundingClientRect().top < window.innerHeight * .4) a = j });
+          tbs.forEach(function (b, j) { b.classList.toggle('on', j === a) })
+        }
+        requestAnimationFrame(frame);
+      }
+      function sc() { target = window.scrollY; orn.classList.toggle('show', !!orn.dataset.post && target > 260) }
+      window.addEventListener('scroll', sc, { passive: true });
+      window.addEventListener('resize', function () { docH = document.documentElement.scrollHeight - window.innerHeight || 1 });
+      window.addEventListener('load', function () { docH = document.documentElement.scrollHeight - window.innerHeight || 1 });
+      window.addEventListener('hashchange', render);
+      render(); cur = target = window.scrollY; sc(); frame();
+    })();
+  </script>
 </body>
+
 </html>
